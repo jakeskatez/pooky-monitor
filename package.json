@@ -1,0 +1,20 @@
+{
+	"name": "pooky-monitor",
+	"version": "1.0.0",
+	"description": "Detect new Pooky scripts on the Supreme website",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kparzniewski/pooky-monitor.git"
+	},
+	"author": "Krzysztof Parzniewski <krparzniewski@gmail.com>",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/kparzniewski/pooky-monitor/issues"
+	},
+	"homepage": "https://github.com/kparzniewski/pooky-monitor#readme",
+	"dependencies": {
+		"puppeteer": "^1.14.0",
+		"webhook-discord": "^3.1.2"
+	}
+}
