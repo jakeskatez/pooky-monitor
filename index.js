@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer");
 const webhook = require("webhook-discord");
-var pookyWebhook = new webhook.Webhook("https://discordapp.com/api/webhooks/568253383568261141/8QgdvuiuVCHRBQwRy75NuF2Wk89eFqMlrTUaW2kNTbwAGGreotKEgpe6PbdcU7VnHtYF");
+var pookyWebhook = new webhook.Webhook("URL");
 
 (async() =>
 {
