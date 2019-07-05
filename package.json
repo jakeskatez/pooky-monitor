@@ -14,7 +14,8 @@
 	},
 	"homepage": "https://github.com/kparzniewski/pooky-monitor#readme",
 	"dependencies": {
-		"puppeteer": "^1.14.0",
+		"cheerio": "^1.0.0-rc.3",
+		"request": "^2.88.0",
 		"webhook-discord": "^3.1.2"
 	}
 }

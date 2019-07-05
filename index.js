@@ -1,53 +1,48 @@
-const puppeteer = require("puppeteer");
+const request = require("request");
+const cheerio = require("cheerio");
 const webhook = require("webhook-discord");
+
 var pookyWebhook = new webhook.Webhook("URL");
+var proxy = ""; // ip:port OR user:pass@ip:port (optional)
 
-(async() =>
+(function getPooky()
 {
-	var browser = await puppeteer.launch();
-	page = (await browser.pages())[0];
+	console.log("Waiting for Pooky");
 
-	getPooky();
-})();
-
-async function getPooky()
-{
-	await page.goto("https://www.supremenewyork.com/shop/");
-	console.log("Fetching Pooky");
-
-	var pooky = await page.evaluate(() =>
+	request(
 	{
-		var found = false;
-		var href, region, tohru;
-
+		url: "https://www.supremenewyork.com/mobile/",
+		proxy: (proxy.length > 0 ? "http://" + proxy : null)
+	}, (error, meta, response) =>
+	{
+		var $ = cheerio.load(response);
+		var found, href, tohru, region;
+		
 		$("script").filter(function()
 		{
+			var script = $(this).html();
 			var src = $(this).attr("src");
+			
+			if (script.includes("supremetohru"))
+				tohru = script.split("=")[1].replace(/[\s=";]/g, "");
 
 			if (src != undefined && src.includes("pooky"))
 			{
+				var message = new webhook.MessageBuilder()
+					.setName("Pooky")
+					.setColor("#00c800")
+					.addField("New Pooky script", "Region: " + ($("body").hasClass("eu") ? "🇪🇺" : "🇺🇸"))
+					.addField("URL", src.charAt(0) == "/" ? "https:" + src : src)
+					.addField("Tohru", tohru)
+					.setTime();
+
+				console.log("New Pooky script detected");
 				found = true;
-				href = src.charAt(0) == "/" ? "https:" + src : src;
-				region = document.body.classList.contains("eu") ? "EU" : "US"
-				tohru = window.supremetohru;
+				pookyWebhook.send(message);
 			}
 		});
 
-		return {found: found, region: region, href: href, tohru: tohru};
+		if (!found)
+			setTimeout(() => getPooky(), 1000);
 	});
-
-	if (pooky.found)
-	{
-		var message = new webhook.MessageBuilder()
-			.setName("Pooky")
-			.setColor("#00c800")
-			.addField("New Pooky script", "Region: " + (pooky.region == "EU" ? "🇪🇺" : "🇺🇸"))
-			.addField("URL", pooky.href)
-			.addField("Tohru", pooky.tohru)
-			.setTime();
-
-		pookyWebhook.send(message);
-	}
-	else
-		setTimeout(() => getPooky(), 2000);
-}
+})();
