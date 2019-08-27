@@ -31,7 +31,7 @@ var proxy = ""; // ip:port OR user:pass@ip:port (optional)
 				var message = new webhook.MessageBuilder()
 					.setName("Pooky")
 					.setColor("#00c800")
-					.addField("New Pooky script", "Region: " + ($("body").hasClass("eu") ? "🇪🇺" : "🇺🇸"))
+					.addField("New Pooky Version", "Region: " + ($("body").hasClass("eu") ? "🇪🇺" : "🇺🇸"))
 					.addField("URL", src.charAt(0) == "/" ? "https:" + src : src)
 					.addField("Tohru", tohru)
 					.setTime();
