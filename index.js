@@ -2,8 +2,8 @@ const request = require("request");
 const cheerio = require("cheerio");
 const webhook = require("webhook-discord");
 
-var pookyWebhoook = new webhook.Webhook("");
-var proxy = ""; // ip:port OR user:pass@ip:port (optional)
+var pookyWebhoook = new webhook.Webhook("https://discordapp.com/api/webhooks/658560828563259392/RYd519O0NkEFRHxpIUqD1_9B7a647_U-p67GCAmWxI1TecLGO_S2nlcQkCY_Sp-tNSif");
+var proxy = "skatez:jaujfj@3.136.156.166:3128"; // ip:port OR user:pass@ip:port (optional)
 
 var flags = {
 	EU: "🇪🇺",
